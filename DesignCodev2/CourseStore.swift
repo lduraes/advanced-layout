@@ -9,9 +9,10 @@
 import SwiftUI
 import Contentful
 import Combine
+import Keys
 
-let client = Client(spaceId: "bvxodoz7bus6", accessToken: "XJiCqAFRz6j35s9W0h_8J_1A-U1dQg3SWMKC7H6SH70")
-//let client = Client(spaceId: "0ge8xzmnbp2c", accessToken: "03010b0d79abc655ca3fda453f2f493b5472e0aaa536664bc7dea5ef4fce2676")
+private let keys = DesignCodev2Keys()
+let client = Client(spaceId: keys.contentfulAPIClientKey, accessToken: keys.contentfulAPIClientSecret)
 
 func getArray(id: String, completionHandler: @escaping([Entry]) -> Void) {
     let query = Query.where(contentTypeId: id)
@@ -37,11 +38,11 @@ class CourseStore: ObservableObject {
         getArray(id: "course") { (items) in
             items.forEach { (item) in
                 //print(item.fields["title"] as! String)
-                self.courses.append(Course(title: item.fields["title"] as! String,
+                self.courses.append(Course(title: item.fields["title"] as? String ?? "",
                                            subtitle: item.fields["subtitle"] as? String ?? "BLANK",
                                            image: (item.fields.linkedAsset(at: "image")?.url ?? URL(string: ""))!,
                                            logo: #imageLiteral(resourceName: "Logo1"),
-                                           color: colors.randomElement()!,
+                                           color: colors.randomElement() ?? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1),
                                            show: false)
                 )
             }

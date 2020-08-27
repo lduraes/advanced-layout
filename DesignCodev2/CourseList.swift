@@ -148,7 +148,7 @@ struct CourseView: View {
                             self.activeView = value.translation
                             
                     }
-                    .onEnded { value in
+                    .onEnded { _ in
                         if self.activeView.height > 50 {
                             self.show = false
                             self.active = false
@@ -184,7 +184,7 @@ struct CourseView: View {
                         guard value.translation.height > 0 else { return }
                         self.activeView = value.translation
                 }
-                .onEnded { value in
+                .onEnded { _ in
                     if self.activeView.height > 50 {
                         self.show = false
                         self.active = false

@@ -84,14 +84,14 @@ struct RectangleButton: View {
         .shadow(color: Color(press ? #colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), radius: 20, x: -20, y: -20)
         .scaleEffect(tap ? 1.2 : 1)
         .gesture(
-            LongPressGesture(minimumDuration: 0.5, maximumDistance: 10).onChanged { value in
+            LongPressGesture(minimumDuration: 0.5, maximumDistance: 10).onChanged { _ in
                 self.tap = true
                 impact(style: .heavy)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.tap = false
                 }
             }
-            .onEnded { value in
+            .onEnded { _ in
                 self.press.toggle()
                 haptic(type: .success)
             }
@@ -119,7 +119,7 @@ struct CircleButton: View {
         .background(
             // create border as inner shadows
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color(press ? #colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(press ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1)),]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                LinearGradient(gradient: Gradient(colors: [Color(press ? #colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(press ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 
                 // 1st shadow
                 Circle()
@@ -137,13 +137,13 @@ struct CircleButton: View {
         .shadow(color: Color(press ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1)), radius: 20, x: 20, y: 20)
         .scaleEffect(tap ? 1.2 : 1)
         .gesture(
-            LongPressGesture().onChanged { value in
+            LongPressGesture().onChanged { _ in
                 self.tap = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.tap = false
                 }
             }
-            .onEnded { value in
+            .onEnded { _ in
                 self.press.toggle()
             }
         )
@@ -176,7 +176,7 @@ struct PayButton: View {
         .background(
             // create border as inner shadows
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color(press ? #colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(press ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1)),]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                LinearGradient(gradient: Gradient(colors: [Color(press ? #colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1) : #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(press ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 
                 // 1st shadow
                 Circle()
@@ -205,10 +205,10 @@ struct PayButton: View {
         .shadow(color: Color(press ? #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0) : #colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1)), radius: 20, x: 20, y: 20)
         .scaleEffect(tap ? 1.2 : 1)
         .gesture(
-            LongPressGesture().updating($tap) { currentState, gestureState, transaction in
+            LongPressGesture().updating($tap) { currentState, gestureState, _ in
                 gestureState = currentState
             }
-            .onEnded { value in
+            .onEnded { _ in
                 self.press.toggle()
             }
         )
